@@ -46,13 +46,23 @@ using UnityEngine;
 
 namespace AmazingCow.UnityExtensions
 {
-    public static class Color_Ext
+    public static class ColorExt
     {
-        public static uint GetPackedRGBValue(this Color color)
+        public static uint ToPackedRGBValue(this Color color)
         {
-            return (((uint)(255 * color.r) & 0xff) << 16) +
-                   (((uint)(255 * color.g) & 0xff) << 8) +
-                   (((uint)(255 * color.b) & 0xff) << 0);
+            return (((uint)(255 * color.r) & 0xFF) << 16) +
+                   (((uint)(255 * color.g) & 0xFF) <<  8) +
+                   (((uint)(255 * color.b) & 0xFF) <<  0);
+        }
+
+
+        public static Color FromPackedRGBValue(uint packedValue)
+        {
+            return new Color(
+                ((packedValue & 0xFF0000) >> 16) / 255.0f,
+                ((packedValue & 0x00FF00) >>  8) / 255.0f,
+                ((packedValue & 0x0000FF) >>  0) / 255.0f
+            );
         }
 
     }//class Color_Ext
